@@ -11,7 +11,6 @@ export class FirebaseService {
   private auth: admin.auth.Auth;
 
   constructor(private readonly logger: CustomLogger) {
-      console.log('logger', logger)
     this.logger.setContext(FirebaseService.name);
     this.initializeApp().then(() => {
       this.auth = admin.auth();
