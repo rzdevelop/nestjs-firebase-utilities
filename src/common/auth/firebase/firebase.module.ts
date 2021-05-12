@@ -5,7 +5,7 @@ import { FirebaseService } from './firebase.service';
 
 @Module({})
 export class FirebaseModule {
-  register(): DynamicModule {
+  static register(): DynamicModule {
     return {
       module: FirebaseModule,
       imports: [PassportModule, CustomLoggerModule.register()],
