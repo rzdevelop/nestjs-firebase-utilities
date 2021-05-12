@@ -24,8 +24,8 @@
   },
   "keywords": [
     "nestjs",
-    "typeorm",
-    "cqrs"
+    "firebase",
+    "passport"
   ],
   "license": "MIT",
   "devDependencies": {
