@@ -1,6 +1,6 @@
 {
   "name": "nestjs-firebase-utilities",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NestJS Package including abstractions for firebase and passport strategies",
   "author": "Renan Zelaya <renan_zelaya@hotmail.com>",
   "main": "lib/index.js",
