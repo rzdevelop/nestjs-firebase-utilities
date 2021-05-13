@@ -1,16 +1,23 @@
 import * as admin from 'firebase-admin';
 import { CustomLogger } from 'nestjs-utilities';
 
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { FirebaseAppOptions } from './firebase.interface';
 
 export type UserRecord = admin.auth.UserRecord;
 export type ListUsersResult = admin.auth.ListUsersResult;
+export interface IFirebaseOptions {
+  getOptions: () => Promise<FirebaseAppOptions> | FirebaseAppOptions;
+}
 
 @Injectable()
 export class FirebaseService {
   private auth: admin.auth.Auth;
 
-  constructor(private readonly logger: CustomLogger) {
+  constructor(
+    private readonly logger: CustomLogger,
+    @Inject('IFirebaseOptions') private readonly firebaseOptions: IFirebaseOptions,
+  ) {
     this.logger.setContext(FirebaseService.name);
     this.initializeApp().then(() => {
       this.auth = admin.auth();
@@ -19,8 +26,8 @@ export class FirebaseService {
 
   private async initializeApp(): Promise<void> {
     if (admin.apps.length === 0) {
-      //   const options = await this.configService.firebaseAppOptions();
-      //   admin.initializeApp(options);
+      const options = await this.firebaseOptions.getOptions();
+      admin.initializeApp(options);
     }
   }
 
