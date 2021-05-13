@@ -19,14 +19,18 @@ export class FirebaseService {
     @Inject('IFirebaseOptions') private readonly firebaseOptions: IFirebaseOptions,
   ) {
     this.logger.setContext(FirebaseService.name);
+    this.logger.info('firebaseOptions', firebaseOptions);
     this.initializeApp().then(() => {
+      this.logger.log('finito ');
       this.auth = admin.auth();
     });
   }
 
   private async initializeApp(): Promise<void> {
+    this.logger.log('opts');
     if (admin.apps.length === 0) {
       const options = await this.firebaseOptions.getOptions();
+      this.logger.info('options', options);
       admin.initializeApp(options);
     }
   }
